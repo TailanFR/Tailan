@@ -14,6 +14,7 @@ body {
 
 .container {
     text-align: center;
+    padding: 20px;
 }
 
 .question {
@@ -24,6 +25,8 @@ body {
 .buttons {
     display: flex;
     gap: 20px;
+    justify-content: center;
+    min-height: 60px;
 }
 
 button {
@@ -33,6 +36,7 @@ button {
     border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s ease;
+    width: 120px;
 }
 
 #yesButton {
@@ -44,6 +48,7 @@ button {
     background-color: #ff4444;
     color: white;
     position: absolute;
+    width: 120px;
 }
 
 #yesButton:hover {
@@ -54,7 +59,7 @@ button {
 </head>
 <body>
 <div class="container">
-    <div class="question">Você vai me dar o cu?</div>
+    <div class="question">Vai me dar o Cu?</div>
     <div class="buttons">
         <button id="yesButton">Sim</button>
         <button id="noButton">Não</button>
@@ -64,13 +69,22 @@ button {
 <script>
 const noButton = document.getElementById('noButton');
 const yesButton = document.getElementById('yesButton');
+const buttonsContainer = document.querySelector('.buttons');
+
+// Função para posicionar inicialmente o botão "Não" ao lado do "Sim"
+function setInitialPosition() {
+    const yesButtonRect = yesButton.getBoundingClientRect();
+    const buttonsContainerRect = buttonsContainer.getBoundingClientRect();
+    
+    noButton.style.left = (yesButtonRect.right + 20) + 'px';
+    noButton.style.top = buttonsContainerRect.top + 'px';
+}
 
 // Função para gerar posição aleatória
 function moveNoButton() {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
     
-    // Considera o tamanho do botão para não ultrapassar os limites da tela
     const buttonWidth = noButton.offsetWidth;
     const buttonHeight = noButton.offsetHeight;
     
@@ -84,11 +98,11 @@ function moveNoButton() {
     noButton.style.top = randomY + 'px';
 }
 
-// Move o botão quando carrega a página
-moveNoButton();
+// Posiciona o botão inicialmente
+setInitialPosition();
 
 // Move o botão quando a tela é redimensionada
-window.addEventListener('resize', moveNoButton);
+window.addEventListener('resize', setInitialPosition);
 
 // Move o botão quando tentar clicar
 noButton.addEventListener('mouseover', moveNoButton);
